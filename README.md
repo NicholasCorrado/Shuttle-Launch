@@ -28,7 +28,7 @@ This is a fun project where try to launch a space shuttle into
 
 Function list:
 * **rk4_step and rk4:** These functions work together to integrate a given function using the fourth-order Runge-Kutta method. A full explanation and derivation of this algorithm is discussed in the textbook.
-  *	**force_gravity:** This function calculates the force the shuttle experiences due to gravity. First, the force magnitude is calculated, and then it is split into its x and y components.
+*	**force_gravity:** This function calculates the force the shuttle experiences due to gravity. First, the force magnitude is calculated, and then it is split into its x and y components.
 *	**air_density:**	This function returns the air density at a certain radial height above earth’s surface. An equation modeling air density as a function of height pulled from Wikipedia is used here. The equation is slightly modified—shifted so that it works with our coordinate system
 *	**force_drag:**	This function calculated the force the shuttle experiences due to drag. The x and y components are calculated explicitly. This function calls the air_density function, since the drag force depends on air density.
 *	**acceleration:**	This function sums up all of the forces and divides this net force by the mass of the shuttle (which is changing in time). Since the forces are returned in x and y components, the acceleration is also returned in x and y components. 
