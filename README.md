@@ -1,3 +1,10 @@
+
+# Shuttle-Launch
+
+**The Question:** Let's say we know the basic information about one of the United States' glorious space shuttles. Is it possible for us to develop a launch maneuver that would get the shuttle into orbit--more specifically, in orbit with the International Space Station--using fairly accurate kinematic models? 
+
+**The Answer:** A resounding "Yes!" See the Shuttle_Simulation.ipynb file for an example simulation (and a detailed explanation of the process). Future considerations and inaccuracies are discussed in the "Discussion" section at the end of this readme.
+
 ### "Sorry, something went wrong. Reload?"
 
 As it turns out, GitHub sporadically has trouble rendering notebooks. 
@@ -6,11 +13,9 @@ In the meantime, you can use [nbviewer](https://nbviewer.jupyter.org/) to view t
 Click the nbviewer link, paste the URL of the notebook that won't render into the search bar, and then hit "Go!".
 That should do the trick!
 
-# Shuttle-Launch
-
-**The Question:** Let's say we know the basic information about one of the United States' glorious space shuttles. Is it possible for us to develop a launch maneuver that would get the shuttle into orbit--more specifically, in orbit with the International Space Station--using fairly accurate kinematic models? 
-
-**The Answer:** A resounding "Yes!" See the Shuttle_Simulation.ipynb file for an example simulation (and a detailed explanation of the process). Future considerations and inaccuracies are discussed in the "Discussion" section at the end of this readme.
+However, the markdown cell titled "ODE System" in Shuttle_Simulation.ipynb fails to completely render. As a result, we only see
+a very small part of the ODE system. This is a GitHub rendering issue and does not happen when rendering with [nbviewer](https://nbviewer.jupyter.org/). If you would like to view the full ODE system, please use [nbviewer](https://nbviewer.jupyter.org/). 
+I will upload an image of the system to this readme soon.
 
 ## File descriptions
 
