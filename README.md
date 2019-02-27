@@ -8,7 +8,9 @@ That should do the trick!
 
 # Shuttle-Launch
 
-**The Question:** Let's say we know the basic information about one of the United States' glorious space shuttles. Is it possible for us to develop a launch maneuver that would get the shuttle into orbit, using fairly accurate kinematic models? 
+**The Question:** Let's say we know the basic information about one of the United States' glorious space shuttles. Is it possible for us to develop a launch maneuver that would get the shuttle into orbit--more specifically, in orbit with the International Space Station--using fairly accurate kinematic models? 
+
+**The Answer:** A resounding "Yes!" See the Shuttle_Simulation.ipynb file for an example simulation (and a detailed explanation of the process). Future considerations and inaccuracies are discussed in the "Discussion" section at the end of this readme.
 
 ## File descriptions
 
@@ -58,35 +60,31 @@ Function list:
 
 ## ODE system
 
-$$
-\frac{d^2x}{dt^2} = -\frac{GMx}{x^2+y^2)^{3/2}} - 
-\frac{\frac{1}{2} C_d A \rho(x,y) (v_x^2+v_y^2)^{1/2} v_x + F_{T_x}}{m(t)}
-$$
-   
-$$
-\frac{d^2y}{dt^2} = -\frac{GMy}{x^2+y^2)^{3/2}} - 
-\frac{\frac{1}{2} C_d A \rho(x,y) (v_x^2+v_y^2)^{1/2} v_y + F_{T_y}}{m(t)}
-$$
-   
-$$
-\frac{dy}{dt} = v_y
-$$
+Please see Shuttle_Simulation.ipynb for the ODE system.
 
-where we define the air density function $\rho(x,y)$ as
+## Discussion
 
-$$
-\rho(x,y) = \rho_0 \exp\Bigg(\frac{-gM(\sqrt{x^2+y^2}-R)}{R_{\text{gas}}T}\Bigg)
-$$
+Generally speaking, the results were solid; the we were able to get the shuttle into orbit, and we were able to do so for a wide range of primary thrust forces. However our orbital heights were significantly higher than expected. When we simulated a launch with specifications similar to that used for a mission to the International Space Station, we got about 1000 km higher than the height of the ISS!
 
-and $m(t)$, the mass of the shuttle as a function of time, is a linear piecewise function that will be explicitly determined later (see "Deterimination of parameters for secondary boosters" and "Validating mass function").
+What's causing that? The next section offers much insight into that question. In brief, it is due to a simplification in the forces acting on the shuttle. In reality, the forces are significantly stronger. 
+The next logical question to ask is why does the orbital radius vary sinusoidally in time? The first explanation that came to mind was that this might be due to approximations made during integration. However, this proved to be incorrect. We did a rerun of simulation 1 but with three times as many points and the results did not change at all. So, there must be something else causing these relatively small oscillations.
 
-### Definition of variables appearing in the ODE system
+As it turns out, the secondary thrusters are the source of these oscillations. Now would be a good time to look at the markdown cell in the code explaining the approximate_boost_info function. 
 
-* $C_d$ = drag coefficient
-* $A$ = cross-sectional area of the shuttle
-* $F_{T_x}$ = thrust force in the x direction
-* $F_{T_y}$ = thrust force in the y direction
-* $R$ = radial distance from the center of the earth (6371 km)
-* $R_{\text{gas}}$ = specific gas constant for dry air
-* $\rho_0$ = air density at sea level
-* $T$ = temperature (this should NOT be constant, but in this simulation, we keep it constant. In the future, it would be interesting to include the temperature lapse rate into air density equation).
+The start and stop time for the secondary boosters were calculated based off of the maximum radial height achieved without them. What we did not account for was the fact that firing the secondary boosters cause a tangential acceleration which in turn causes the radius to increase as well. 
+
+In brief, the maximum radial height achieve with the secondary boosters is greater than that achieved without them. So, the shuttle is traveling at a speed required for a circular orbit at a height slightly smaller than it's actual height. Hence, the orbit is slightly elliptical. This isn't a huge problem, because all real orbits are at least slightly elliptical. This also explains why the radial velocity oscillates around 0 and why the tangential velocity oscillate around ~7500 m/s.
+
+## Future Directions
+
+With this project we were able to achieve a stable orbit from being given a force for the primary thrusters.  All other variables are determined from that number, reaching any number of different orbit heights.  What would make the program more usable in a situation would be to let an orbital height be inputted by the user.  The program could be made to calculate the minimum of fuel needed in the primary and secondary thrusters to reach the stated height and required velocity for orbit.  This would involve many more lines of code along with changing up how the entire process works, but it does seem doable. This would be a much more logical thing to do—input our goal and calculate the required specifications rather than inputting the specifications and calculating the results.
+	
+There were other variables that we more or less ignored in order to pursue the goal of actually getting the shuttle into orbit, either because it was too complicated for us to code or we didn’t know how it worked.  One was the presence of atmospheric density, which would apply additional drag on to the shuttle.  We only accounted for the air density within the troposphere, not the layers of atmosphere we must pass through when exiting the atmosphere.  
+
+Another was our failure to account for how the drag changed once the shuttle had hit supersonic speeds, as the amount of drag no longer behaves regularly and is instead stronger by a large margin.  The drag coefficient increases and peaks and Mach 1, then decreases and levels out at .4.  This is still stronger than the drag coefficient we were using the entire time.  Doing this would involve us choosing which drag coefficient was being used, based on the velocity, along with creating a function for its calculation.
+
+The general launch process was unrealistic. When our primary thrusters ran out of fuel, we made it as if its container "burned" too. In reality, just the fuel would burn, and the containers would be jettisoned afterwards. So, the decreasing mass was not accurately implemented. Furthermore, fuel was not continuously burned. There was a large gap between when the primary thrusters stopped and the secondary thrusters started. This is simply unrealistic. In real launches, boosters are continuously fired and they do not stop firing until the shuttle is actually in orbit.
+
+On the topic of extra variables we didn’t account for is that we treated the earth as a uniform mass for the sake of gravity calculations.  This is not how the earth is set up, since its's density changes throughout.
+
+Another thing that could have been done better were we not generalizing so many of the variables, is the tilting of the shuttle.  For our system the shuttle begins its slow tilt the moment it launches, becoming horizontal once the primary thrusters have fully run out of fuel.  In reality it is a much more hyperbolic function, barely tilting at all during the first stage of the shuttle before the solid fuel booster is released from the system.  The variance between our systems implemented is great, mostly due to the fact that our shuttle, although simple, is horribly inefficient.  This more complicated and realistic process is something that would have to be implemented if fuel conservation were ever to be a concern.
