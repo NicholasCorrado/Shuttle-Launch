@@ -56,3 +56,37 @@ Function list:
 * **print_init:** This function simply prints out all relevant constants and initial conditions of the launch.
 * **test:** This function runs the final simulation and plots a variety of relations, including the trajectory (2D and 3D) and various velocities vs time. It calls all of the functions above and integrates using the fourth-order Runge-Kutta method. 
 
+## ODE system
+
+$$
+\frac{d^2x}{dt^2} = -\frac{GMx}{x^2+y^2)^{3/2}} - 
+\frac{\frac{1}{2} C_d A \rho(x,y) (v_x^2+v_y^2)^{1/2} v_x + F_{T_x}}{m(t)}
+$$
+   
+$$
+\frac{d^2y}{dt^2} = -\frac{GMy}{x^2+y^2)^{3/2}} - 
+\frac{\frac{1}{2} C_d A \rho(x,y) (v_x^2+v_y^2)^{1/2} v_y + F_{T_y}}{m(t)}
+$$
+   
+$$
+\frac{dy}{dt} = v_y
+$$
+
+where we define the air density function $\rho(x,y)$ as
+
+$$
+\rho(x,y) = \rho_0 \exp\Bigg(\frac{-gM(\sqrt{x^2+y^2}-R)}{R_{\text{gas}}T}\Bigg)
+$$
+
+and $m(t)$, the mass of the shuttle as a function of time, is a linear piecewise function that will be explicitly determined later (see "Deterimination of parameters for secondary boosters" and "Validating mass function").
+
+### Definition of variables appearing in the ODE system
+
+* $C_d$ = drag coefficient
+* $A$ = cross-sectional area of the shuttle
+* $F_{T_x}$ = thrust force in the x direction
+* $F_{T_y}$ = thrust force in the y direction
+* $R$ = radial distance from the center of the earth (6371 km)
+* $R_{\text{gas}}$ = specific gas constant for dry air
+* $\rho_0$ = air density at sea level
+* $T$ = temperature (this should NOT be constant, but in this simulation, we keep it constant. In the future, it would be interesting to include the temperature lapse rate into air density equation).
