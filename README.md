@@ -15,7 +15,7 @@ That should do the trick!
 
 However, the markdown cell titled "ODE System" in Shuttle_Simulation.ipynb fails to completely render. As a result, we only see
 a very small part of the ODE system. This is a GitHub rendering issue and does not happen when rendering with [nbviewer](https://nbviewer.jupyter.org/). If you would like to view the full ODE system, please use [nbviewer](https://nbviewer.jupyter.org/). 
-I will upload an image of the system to this readme soon.
+I also uploaded an image of the fully-rendered ODE system markdown cell in one of the later sections below.
 
 ## File descriptions
 
@@ -65,7 +65,7 @@ Function list:
 
 ## ODE system
 
-![Image of ODE sytem that fails to render]()Please see Shuttle_Simulation.ipynb for the ODE system.
+![Image of ODE sytem that fails to render](https://github.com/NicholasCorrado/Shuttle-Launch/blob/master/ODE_system.PNG)
 
 
 ## Discussion
