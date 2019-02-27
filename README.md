@@ -65,7 +65,8 @@ Function list:
 
 ## ODE system
 
-Please see Shuttle_Simulation.ipynb for the ODE system.
+![Image of ODE sytem that fails to render]()Please see Shuttle_Simulation.ipynb for the ODE system.
+
 
 ## Discussion
 
