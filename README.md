@@ -8,13 +8,13 @@ That should do the trick!
 
 # Shuttle-Launch
 
-This is a fun project where try to launch a space shuttle into 
+**The Question:** Let's say we know the basic information about one of the United States' glorious space shuttles. Is it possible for us to develop a launch maneuver that would get the shuttle into orbit, using fairly accurate kinematic models? 
 
 ## File descriptions
 
+@todo
 
-
-## Important assumptions
+## Basic assumptions/definitions
 
 * We set the origin as the center of earth.
 * We approximate the earth as a sphere (the telltale sign of a true physicist).
@@ -24,6 +24,22 @@ This is a fun project where try to launch a space shuttle into
 * The axes are positioned such that the earth's rotation is purely in the xy plane.
 * The earth's rotation is also clockwise.
 
+## Shuttle specifications
+
+Please note that these shuttle's specifications are in fact accurate values for a real space shuttle used by the United States. All specifications listed below can be found on the [this Space Shuttle Wikipedia article](https://en.wikipedia.org/wiki/Space_Shuttle) or in links on the sidebar of that Wikipedia article. Thrust mechanisms were inspired by information contained in [this Rocket Engine Wikipedia article](https://en.wikipedia.org/wiki/Rocket_engine).
+
+* The shuttle's cross-sectional area is assumed to be circular with a radius of 8.7 m.
+* The shuttle's drag coeffient $C_d$ is 0.1.
+* The shuttle's mass is 80,000 kg.
+* The mass of the shuttle's primary boosters is 1,200,000 kg.
+* The mass of the shuttle's ssecondary boosters is 100,000  kg.
+* Primary boosters burn for a total of 127 seconds.
+* The force from the secondary boosters is 5,000,000 N.
+
+We leave the following two "specifications" as parameters:
+
+* The force from the primary thrusters. We let the user input whatever thrust force they want.
+* How long the secondary boosters burn. In this simulation, the burn time for the secondary boosters depends on how much thrust was provided by the primary boosters. If the primary boosters give a lot of thrust, the secondary boosters won't need to burn for that long, but if the primary boosters give a bit less thrust, the seconday boosters will need to burn on for a bit longer. Hence, it is possible for the shuttle to make it into orbit without usin up all of its secondary fuel.
 ## A brief description of all functions
 
 Function list:
